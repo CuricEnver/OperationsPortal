@@ -2,5 +2,17 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/OperationsPortal.Api/.vs
+# .NET build output
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# React frontend
+node_modules/
+dist/
+
+# OS junk
+.DS_Store
+Thumbs.db
