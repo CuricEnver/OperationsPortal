@@ -3,10 +3,10 @@
     public class BomLine
     {
         public int BomLineId { get; set; }
+        public decimal QuantityPerAssembly { get; set; } = 1m;
+        public int LineNumber { get; set; }
         public int BomHeaderId { get; set; }
         public int ItemId { get; set; }
-        public int QuantityPerAssembly { get; set; } = 1;
-        public int LineNumber { get; set; } = 10;
         public Item Item { get; set; } = null!;
         public BomHeader BomHeader { get; set; } = null!;   
     }

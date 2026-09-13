@@ -11,6 +11,6 @@
         public bool IsActive { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime? LastLogin { get; set; }
-        public ICollection<UserRoles> UserRoles { get; set; } = new List<UserRoles>();
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }

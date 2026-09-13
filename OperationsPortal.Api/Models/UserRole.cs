@@ -1,6 +1,6 @@
 ﻿namespace OperationsPortal.Api.Models
 {
-    public class UserRoles
+    public class UserRole
     {
         public int UserRoleId { get; set; }
         public int UserId { get; set; }

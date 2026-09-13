@@ -6,9 +6,9 @@
         public string ItemName { get; set; } = string.Empty;
         public string ItemNumber { get; set; } = string.Empty;
         public string ItemType { get; set; } = string.Empty;
-        public int UnitOfMeasureId { get; set; }
         public string? Description { get; set; }
         public bool IsActive { get; set; } = true;
+        public int UnitOfMeasureId { get; set; }
         public UnitOfMeasure UnitOfMeasure { get; set; } = null!;
         public ICollection<Inventory> Inventories { get; set; } = new List<Inventory>();
         public ICollection<BomHeader> BomHeaders { get; set; } = new List<BomHeader>();
