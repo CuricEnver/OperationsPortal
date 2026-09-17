@@ -18,7 +18,7 @@ namespace OperationsPortal.Api.Configurations
 
             builder.Property(x => x.LineNumber).IsRequired();
 
-            builder.HasIndex(x => new { x.BomHeaderId, x.LineNumber });
+            builder.HasIndex(x => new { x.BomHeaderId, x.LineNumber }).IsUnique();
 
             builder.HasOne(x=> x.Item)
                 .WithMany(x => x.BomLines)

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OperationsPortal.Api.Data;
+using OperationsPortal.Api.Infrastructure.Extensions;
+using OperationsPortal.Api.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,13 @@ builder.Services.AddDbContext<OperationsPortalContext>(options =>
            .UseSnakeCaseNamingConvention();
 });
 
+// Bind JwtSettings from configuration
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
+    ?? throw new InvalidOperationException("JwtSettings configuration section is missing.");
+
+// Add JWT authentication
+builder.Services.AddJwtAuthentication(jwtSettings);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,7 +32,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

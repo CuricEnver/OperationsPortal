@@ -36,9 +36,12 @@ namespace OperationsPortal.Api.Configurations
                 .IsRequired();
 
             builder.Property(x => x.CreatedAt)
-                .IsRequired();  
+                .IsRequired();
 
             builder.HasIndex(x => x.Username)
+                .IsUnique();
+
+            builder.HasIndex(x => x.Email)
                 .IsUnique();
 
             builder.HasMany(x => x.UserRoles)
