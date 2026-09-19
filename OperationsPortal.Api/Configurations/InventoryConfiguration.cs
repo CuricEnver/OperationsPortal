@@ -2,27 +2,30 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OperationsPortal.Api.Models;
 
-public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
+namespace OperationsPortal.Api.Configurations
 {
-    public void Configure(EntityTypeBuilder<Inventory> builder)
+    public class InventoryConfiguration : IEntityTypeConfiguration<Inventory>
     {
-        builder.ToTable("Inventories");
+        public void Configure(EntityTypeBuilder<Inventory> builder)
+        {
+            builder.ToTable("Inventories");
 
-        builder.HasKey(x => x.InventoryId);
+            builder.HasKey(x => x.InventoryId);
 
-        builder.Property(x => x.Quantity)
-            .IsRequired()
-            .HasColumnType("decimal(18,6)");
+            builder.Property(x => x.Quantity)
+                .IsRequired()
+                .HasColumnType("decimal(18,6)");
 
-        builder.HasIndex(x => new { x.InventoryLocationId, x.ItemId })
-            .IsUnique();
+            builder.HasIndex(x => new { x.InventoryLocationId, x.ItemId })
+                .IsUnique();
 
-        builder.HasOne(x => x.InventoryLocation)
-            .WithMany(x => x.Inventories)
-            .HasForeignKey(x => x.InventoryLocationId);
+            builder.HasOne(x => x.InventoryLocation)
+                .WithMany(x => x.Inventories)
+                .HasForeignKey(x => x.InventoryLocationId);
 
-        builder.HasOne(x => x.Item)
-            .WithMany(x => x.Inventories)
-            .HasForeignKey(x => x.ItemId);
+            builder.HasOne(x => x.Item)
+                .WithMany(x => x.Inventories)
+                .HasForeignKey(x => x.ItemId);
+        }
     }
 }

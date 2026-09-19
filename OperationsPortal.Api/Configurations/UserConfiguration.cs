@@ -30,7 +30,7 @@ namespace OperationsPortal.Api.Configurations
 
             builder.Property(x => x.PasswordHash)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(200);
             
             builder.Property(x => x.IsActive)
                 .IsRequired();
@@ -47,6 +47,31 @@ namespace OperationsPortal.Api.Configurations
             builder.HasMany(x => x.UserRoles)
                 .WithOne()
                 .HasForeignKey(x => x.UserId);
+
+            builder.HasData(
+                new User
+                {
+                    UserId = 1,
+                    Username = "admin",
+                    FirstName = "System",
+                    LastName = "Administrator",
+                    Email = "admin@example.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEImW9E0z4CPWCwnk9BMKOAORDmLct+S8Zuv5KdUuuqTqIOtklnX4t/6y/UBBnGSNnA==",
+                    IsActive = true,
+                    CreatedAt = new DateTime(2024, 01, 01, 0, 0, 0, DateTimeKind.Utc)
+                },
+                new User
+                {
+                    UserId = 2,
+                    Username = "demo",
+                    FirstName = "Demo",
+                    LastName = "User",
+                    Email = "demo@example.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEOiP6VarDR0q/CH7ZBbIQn4gk8rUNUXXP1H86ll1Opdg1yvMWBoTt4axWFf1JBiMzQ==",
+                    IsActive = true,
+                    CreatedAt = new DateTime(2024, 01, 01, 0, 0, 0, DateTimeKind.Utc)
+                }
+            );
         }
     }
 }

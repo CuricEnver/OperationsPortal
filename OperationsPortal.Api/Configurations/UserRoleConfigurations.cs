@@ -22,6 +22,11 @@ namespace OperationsPortal.Api.Configurations
             builder.HasOne(x => x.Role)
                 .WithMany(x => x.UserRoles)
                 .HasForeignKey(x => x.RoleId);
+
+            builder.HasData(
+                new UserRole { UserRoleId = 1, UserId = 1, RoleId = 1 }, // admin → Admin
+                new UserRole { UserRoleId = 2, UserId = 2, RoleId = 2 }  // demo → Viewer
+            );
         }
     }
 }

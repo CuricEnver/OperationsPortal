@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OperationsPortal.Api.Data;
@@ -11,9 +12,11 @@ using OperationsPortal.Api.Data;
 namespace OperationsPortal.Api.Migrations
 {
     [DbContext(typeof(OperationsPortalContext))]
-    partial class OperationsPortalContextModelSnapshot : ModelSnapshot
+    [Migration("20260919035806_SeedUser")]
+    partial class SeedUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

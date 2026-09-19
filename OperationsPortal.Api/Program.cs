@@ -19,30 +19,36 @@ builder.Services.AddDbContext<OperationsPortalContext>(options =>
            .UseSnakeCaseNamingConvention();
 });
 
-// Bind JwtSettings from configuration
-var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
-    ?? throw new InvalidOperationException("JwtSettings configuration section is missing.");
+// Load JwtSettings (may be null during migrations)
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
-// Add JWT authentication
-builder.Services.AddJwtAuthentication(jwtSettings);
-
+// Register services that DO NOT depend on JwtSettings
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
+// Only register JwtTokenService + JwtSettings + JWT auth if settings exist
+if (jwtSettings is not null)
+{
+    builder.Services.AddSingleton(jwtSettings);
+    builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+    builder.Services.AddJwtAuthentication(jwtSettings);
+}
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
