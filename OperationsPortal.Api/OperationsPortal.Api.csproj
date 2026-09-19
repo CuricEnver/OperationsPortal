@@ -25,6 +25,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Features\Authorization\ChangePassword\" />
+    <Folder Include="Features\Authorization\CurrentUser\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OperationsPortal.Api.Data;
+using OperationsPortal.Api.Features.Authorization.Login;
 using OperationsPortal.Api.Infrastructure.Extensions;
 using OperationsPortal.Api.Infrastructure.Security;
+using OperationsPortal.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,11 @@ var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSetting
 
 // Add JWT authentication
 builder.Services.AddJwtAuthentication(jwtSettings);
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
 
 var app = builder.Build();
 

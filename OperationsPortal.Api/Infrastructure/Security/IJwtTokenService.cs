@@ -1,6 +1,9 @@
 ﻿using OperationsPortal.Api.Models;
 
-public interface IJwtTokenService
+namespace OperationsPortal.Api.Infrastructure.Security
 {
-    string GenerateToken(User user);
+    public interface IJwtTokenService
+    {
+        string GenerateToken(User user);
+    }
 }
