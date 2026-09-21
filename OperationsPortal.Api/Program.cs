@@ -8,32 +8,25 @@ using OperationsPortal.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-// Add DbContext with PostgreSQL + snake_case naming
 builder.Services.AddDbContext<OperationsPortalContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
            .UseSnakeCaseNamingConvention();
 });
 
-// Load JwtSettings (may be null during migrations)
-var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>()
+    ?? throw new Exception("JwtSettings missing from configuration.");
 
-// Register services that DO NOT depend on JwtSettings
+builder.Services.AddSingleton(jwtSettings);
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddJwtAuthentication(jwtSettings);
 
-// Only register JwtTokenService + JwtSettings + JWT auth if settings exist
-if (jwtSettings is not null)
-{
-    builder.Services.AddSingleton(jwtSettings);
-    builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
-    builder.Services.AddJwtAuthentication(jwtSettings);
-}
-
+// Swagger (remove duplicates if AddOpenApi already handles it)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -47,10 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
