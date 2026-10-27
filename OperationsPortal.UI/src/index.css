@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* Semantic design tokens used to keep styling consistent and easy to reason about. */
+@theme {
+    /* Theme */
+    --color-primary: rgb(6, 22, 40);
+    --color-primary-light: rgba(6, 22, 40, 0.15);
+
+    /* Surfaces */
+    --color-surface: #ffffff;
+    --color-surface-subtle: #f8fafc;
+
+    /* State Colors */
+    --color-success: #16a34a;
+    --color-success-light: rgba(22, 163, 74, 0.12);
+
+    --color-danger: #ce2020;
+    --color-danger-light: rgba(220, 38, 38, 0.12);
+
+    /* Borders */
+    --color-border-strong: rgba(6, 22, 40, 0.5);
+    --color-border-medium: rgba(6, 22, 40, 0.35);
+    --color-border-light: rgba(6, 22, 40, 0.2);
+
+    /* Text Colors */
+    --color-text-strong: rgb(6, 22, 40);
+    --color-text-subtle: rgba(6, 22, 40, 0.5);
+    --color-text-neutral: #475569;
+
+    /* Typography */
+    --text-small: 0.75rem;
+    --text-medium: 0.85rem;
+    --text-large: 0.95rem;
+
+    --text-header-small: 1rem;
+    --text-header-medium: 1.15rem;
+    --text-header-large: 1.3rem;
+
+    --text-label-small: 0.75rem;
+    --text-label-medium: 0.8rem;
+    --text-label-large: 0.85rem;
+
+    /* Metrics */
+    --text-metric-small: 1.15rem;
+    --text-metric-medium: 1.3rem;
+    --text-metric-large: 1.5rem;
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-xssm: 6px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-xxl: 32px;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    color: var(--color-primary);
+}
+
+/* ==========================================================================
+   STRUCTURAL RELATIONSHIPS
+   ========================================================================== */
+
+/* Primary */
+
+.header + .layout-body {
+    border-top: 1px solid var(--color-primary);
+}
+
+/* Strong */
+
+.header + .region {
+    border-top: 1px solid var(--color-border-strong);
+}
+
+.region + .region {
+    border-top: 1px solid var(--color-border-strong);
+}
+
+.region + .footer {
+    border-top: 1px solid var(--color-border-strong);
+}
+
+.region + .header {
+    border-top: 1px solid var(--color-border-strong);
+    padding-top: var(--spacing-xxl);
+}
+
+/* Medium */
+
+.header + .section {
+   border-top: 1px solid var(--color-border-medium);
+}
+
+.section + .section {
+    border-top: 1px solid var(--color-border-medium);
+}
+
+.section + .header {
+    border-top: 1px solid var(--color-border-medium);
+    padding-top: var(--spacing-lg);
+}
+
+.section + .footer {
+    border-top: 1px solid var(--color-border-medium);
+}
+
+/* Light */
+
+.list > *:not(:last-child) {
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.nav-menu-left .nav-menu-pane + .nav-menu-pane {
+    border-left: 1px solid var(--color-border-medium);
+}
+
+.nav-menu-right .nav-menu-pane + .nav-menu-pane {
+    border-right: 1px solid var(--color-border-medium);
+}
+
+/* ==========================================================================
+   GLOBAL SCROLLBAR
+   ========================================================================== */
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-medium);
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   AG GRID BASE THEME
+   ========================================================================== */
+
+.ag-root-wrapper {
+    border: none;
+}
+
+.ag-header {
+    border-bottom: 1px solid var(--color-border-light);
+}
+
+.ag-header-cell {
+    border-right: none;
+}
+
+.ag-header-group-cell {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.ag-cell {
+    border-right: none;
+}
+
+.ag-tooltip {
+    border: 1px solid var(--color-border-medium);
+    background: var(--color-surface);
+    color: var(--color-text-strong);
+}
+
