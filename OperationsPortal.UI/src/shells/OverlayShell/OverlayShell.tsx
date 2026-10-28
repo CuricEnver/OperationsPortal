@@ -8,7 +8,7 @@ interface OverlayShellProps {
 }
 
 const sizeClasses = {
-    small: "h-[50vh] w-[40vw]",
+    small: "h-[46vh] w-[min(34rem,calc(100vw-2rem))] min-w-0",
     medium: "h-[70vh] w-[60vw]",
     large: "h-[80vh] w-[70vw]",
 };

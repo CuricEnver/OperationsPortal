@@ -61,6 +61,7 @@ const InventoryCatalog = () => {
 
         handleCreateItem,
         handleDeleteItem,
+        handleLeadTimeChange,
         handleSaveItem,
         handleSelectItem
     } = useInventoryCatalog();
@@ -158,15 +159,6 @@ const InventoryCatalog = () => {
                                 </Field>
 
                                 <Field
-                                    label="Description"
-                                    size="medium"
-                                >
-                                    <Input
-                                        value={selectedItem?.description ?? ""}
-                                    />
-                                </Field>
-
-                                <Field
                                     label="Item Type"
                                     size="medium"
                                 >
@@ -190,6 +182,55 @@ const InventoryCatalog = () => {
                                         onChange={() => {}}
                                     />
 
+                                </Field>
+
+                                <Field
+                                    label="Purchase Lead Time (Days)"
+                                    size="medium"
+                                >
+                                    <Input
+                                        type="number"
+                                        min={0}
+                                        step={1}
+                                        value={selectedItem?.purchaseLeadTimeDays ?? ""}
+                                        onChange={(event) =>
+                                            handleLeadTimeChange(
+                                                "purchaseLeadTimeDays",
+                                                event.target.value === ""
+                                                    ? null
+                                                    : Number(event.target.value),
+                                            )
+                                        }
+                                    />
+                                </Field>
+
+                                <Field
+                                    label="Assembly Lead Time (Days)"
+                                    size="medium"
+                                >
+                                    <Input
+                                        type="number"
+                                        min={0}
+                                        step={1}
+                                        value={selectedItem?.assemblyLeadTimeDays ?? ""}
+                                        onChange={(event) =>
+                                            handleLeadTimeChange(
+                                                "assemblyLeadTimeDays",
+                                                event.target.value === ""
+                                                    ? null
+                                                    : Number(event.target.value),
+                                            )
+                                        }
+                                    />
+                                </Field>
+
+                                <Field
+                                    label="Description"
+                                    size="medium"
+                                >
+                                    <Input
+                                        value={selectedItem?.description ?? ""}
+                                    />
                                 </Field>
                             </Form>
                         </Section>

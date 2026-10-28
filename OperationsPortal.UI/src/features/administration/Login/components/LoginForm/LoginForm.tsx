@@ -1,20 +1,32 @@
-import { useState } from "react";
-
 import Form from "../../../../../components/composite/Form";
 import Field from "../../../../../components/composite/Field";
 
 import Input from "../../../../../components/primitive/Input";
 
-import testImage from "../../../../../assets/test.png"
+interface LoginFormProps {
+    username: string;
+    onUsernameChange: (username: string) => void;
+    password: string;
+    onPasswordChange: (password: string) => void;
+    error: string | null;
+}
 
-const LoginForm = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
+const LoginForm = ({
+    username,
+    onUsernameChange,
+    password,
+    onPasswordChange,
+    error,
+}: LoginFormProps) => {
     return (
         <Form
             columns={1}
         >
+            {error && (
+                <p role="alert" className="text-danger">
+                    {error}
+                </p>
+            )}
             <Field
                 label="Username"
                 size="small"
@@ -24,8 +36,9 @@ const LoginForm = () => {
                     size="small"
                     value={username}
                     placeholder="Enter username..."
+                    autoComplete="username"
                     onChange={(event) =>
-                        setUsername(event.target.value)
+                        onUsernameChange(event.target.value)
                     }
                 />
             </Field>
@@ -39,20 +52,12 @@ const LoginForm = () => {
                     size="small"
                     value={password}
                     placeholder="Enter password..."
+                    autoComplete="current-password"
                     onChange={(event) =>
-                        setPassword(event.target.value)
+                        onPasswordChange(event.target.value)
                     }
                 />
             </Field>
-            <img 
-                src={testImage}
-                draggable={false}
-                className="
-                        mx-auto
-                        w-8/10
-                        select-none"
-                alt="Demand through execution workflow"
-            />
         </Form>
     );
 };

@@ -36,18 +36,6 @@ namespace OperationsPortal.Api.Configurations
             builder.HasOne(x => x.UnitOfMeasure)
                 .WithMany()
                 .HasForeignKey(x => x.UnitOfMeasureId);
-
-            builder.HasMany(x => x.Inventories)
-                .WithOne()
-                .HasForeignKey(x => x.ItemId);
-
-            builder.HasMany(x => x.BomHeaders)
-                .WithOne()
-                .HasForeignKey(x => x.ItemId);
-
-            builder.HasMany(x => x.BomLines)
-                .WithOne()
-                .HasForeignKey(x => x.ItemId);  
         }
     }
 }

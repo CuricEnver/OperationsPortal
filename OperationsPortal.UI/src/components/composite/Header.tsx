@@ -20,13 +20,13 @@ const sizeStyles = {
         header: "p-xssm",
         title: "text-header-medium",
         icon: "size-5",
-        subtitle: "text-small",
+        subtitle: "text-label-small",
     },
     large: {
         header: "p-sm",
         title: "text-header-large",
         icon: "size-6",
-        subtitle: "text-small",
+        subtitle: "text-label-medium",
     },
 };
 

@@ -5,6 +5,8 @@ interface InventoryItem {
     itemNumber: string,
     itemName: string,
     description: string,
+    purchaseLeadTimeDays: number | null,
+    assemblyLeadTimeDays: number | null,
     itemTypeId: number | null,
     unitOfMeasureId: number | null
 }
@@ -15,6 +17,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "100001",
         itemName: "Hex Bolt",
         description: "General purpose hex bolt",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 1,
         unitOfMeasureId: 1,
     },
@@ -23,6 +27,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "100002",
         itemName: "Flat Washer",
         description: "Standard flat washer",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 1,
         unitOfMeasureId: 1,
     },
@@ -31,6 +37,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "100003",
         itemName: "Mounting Bracket",
         description: "Steel mounting bracket",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 1,
         unitOfMeasureId: 1,
     },
@@ -39,6 +47,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "100004",
         itemName: "Control Housing",
         description: "Injection molded enclosure",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 3,
         unitOfMeasureId: 1,
     },
@@ -47,6 +57,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "200001",
         itemName: "Motor Assembly",
         description: "Primary drive motor assembly",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 2,
         unitOfMeasureId: 1,
     },
@@ -55,6 +67,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "200002",
         itemName: "Fastener Kit",
         description: "Standard assembly fastener kit",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 2,
         unitOfMeasureId: 1,
     },
@@ -63,6 +77,8 @@ const inventoryItems: InventoryItem[] = [
         itemNumber: "300001",
         itemName: "Control Cabinet",
         description: "Finished control cabinet",
+        purchaseLeadTimeDays: null,
+        assemblyLeadTimeDays: null,
         itemTypeId: 3,
         unitOfMeasureId: 1,
     },
@@ -86,6 +102,17 @@ const useInventoryCatalog = () => {
 
     const handleSelectItem = ( item: InventoryItem ) => {
         setSelectedItem(item);
+    };
+
+    const handleLeadTimeChange = (
+        field: "purchaseLeadTimeDays" | "assemblyLeadTimeDays",
+        value: number | null,
+    ) => {
+        setSelectedItem((currentItem) =>
+            currentItem
+                ? { ...currentItem, [field]: value }
+                : currentItem,
+        );
     };
 
     const handleSaveItem = () => {
@@ -117,6 +144,8 @@ const useInventoryCatalog = () => {
             itemNumber: "",
             itemName: "",
             description: "",
+            purchaseLeadTimeDays: null,
+            assemblyLeadTimeDays: null,
             itemTypeId: null,
             unitOfMeasureId: null
         };
@@ -135,6 +164,7 @@ const useInventoryCatalog = () => {
 
         handleCreateItem,
         handleDeleteItem,
+        handleLeadTimeChange,
         handleSaveItem,
         handleSelectItem
     };

@@ -7,6 +7,8 @@
         public string ItemNumber { get; set; } = string.Empty;
         public string ItemType { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public int? PurchaseLeadTimeDays { get; set; }
+        public int? AssemblyLeadTimeDays { get; set; }
         public bool IsActive { get; set; } = true;
         public int UnitOfMeasureId { get; set; }
         public UnitOfMeasure UnitOfMeasure { get; set; } = null!;

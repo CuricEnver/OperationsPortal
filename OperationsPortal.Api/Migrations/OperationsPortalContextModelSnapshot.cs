@@ -45,15 +45,8 @@ namespace OperationsPortal.Api.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("item_id");
 
-                    b.Property<int>("ItemId1")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id1");
-
                     b.HasKey("BomHeaderId")
                         .HasName("pk_bom_headers");
-
-                    b.HasIndex("ItemId1")
-                        .HasDatabaseName("ix_bom_headers_item_id1");
 
                     b.HasIndex("ItemId", "BomHeaderName")
                         .IsUnique()
@@ -79,10 +72,6 @@ namespace OperationsPortal.Api.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("item_id");
 
-                    b.Property<int>("ItemId1")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id1");
-
                     b.Property<int>("LineNumber")
                         .HasColumnType("integer")
                         .HasColumnName("line_number");
@@ -96,9 +85,6 @@ namespace OperationsPortal.Api.Migrations
 
                     b.HasIndex("ItemId")
                         .HasDatabaseName("ix_bom_lines_item_id");
-
-                    b.HasIndex("ItemId1")
-                        .HasDatabaseName("ix_bom_lines_item_id1");
 
                     b.HasIndex("BomHeaderId", "LineNumber")
                         .IsUnique()
@@ -124,10 +110,6 @@ namespace OperationsPortal.Api.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("item_id");
 
-                    b.Property<int>("ItemId1")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id1");
-
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,6)")
                         .HasColumnName("quantity");
@@ -137,9 +119,6 @@ namespace OperationsPortal.Api.Migrations
 
                     b.HasIndex("ItemId")
                         .HasDatabaseName("ix_inventories_item_id");
-
-                    b.HasIndex("ItemId1")
-                        .HasDatabaseName("ix_inventories_item_id1");
 
                     b.HasIndex("InventoryLocationId", "ItemId")
                         .IsUnique()
@@ -191,6 +170,10 @@ namespace OperationsPortal.Api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ItemId"));
 
+                    b.Property<int?>("AssemblyLeadTimeDays")
+                        .HasColumnType("integer")
+                        .HasColumnName("assembly_lead_time_days");
+
                     b.Property<string>("Description")
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)")
@@ -217,6 +200,10 @@ namespace OperationsPortal.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
                         .HasColumnName("item_type");
+
+                    b.Property<int?>("PurchaseLeadTimeDays")
+                        .HasColumnType("integer")
+                        .HasColumnName("purchase_lead_time_days");
 
                     b.Property<int>("UnitOfMeasureId")
                         .HasColumnType("integer")
@@ -498,19 +485,12 @@ namespace OperationsPortal.Api.Migrations
 
             modelBuilder.Entity("OperationsPortal.Api.Models.BomHeader", b =>
                 {
-                    b.HasOne("OperationsPortal.Api.Models.Item", null)
+                    b.HasOne("OperationsPortal.Api.Models.Item", "Item")
                         .WithMany("BomHeaders")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_bom_headers_items_item_id");
-
-                    b.HasOne("OperationsPortal.Api.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_bom_headers_items_item_id1");
 
                     b.Navigation("Item");
                 });
@@ -524,19 +504,12 @@ namespace OperationsPortal.Api.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_bom_lines_bom_headers_bom_header_id");
 
-                    b.HasOne("OperationsPortal.Api.Models.Item", null)
+                    b.HasOne("OperationsPortal.Api.Models.Item", "Item")
                         .WithMany("BomLines")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_bom_lines_items_item_id");
-
-                    b.HasOne("OperationsPortal.Api.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_bom_lines_items_item_id1");
 
                     b.Navigation("BomHeader");
 
@@ -552,19 +525,12 @@ namespace OperationsPortal.Api.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_inventories_inventory_locations_inventory_location_id");
 
-                    b.HasOne("OperationsPortal.Api.Models.Item", null)
+                    b.HasOne("OperationsPortal.Api.Models.Item", "Item")
                         .WithMany("Inventories")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_inventories_items_item_id");
-
-                    b.HasOne("OperationsPortal.Api.Models.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_inventories_items_item_id1");
 
                     b.Navigation("InventoryLocation");
 
